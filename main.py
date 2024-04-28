@@ -40,56 +40,56 @@ list3 = []
 for i in range(0, 1000000):
     list3.append(random.randint(0, 1000))
 
-print("Indices without numpy list1")
+print("Indices without numpy, list1")
 start = time.time_ns()
 ind_list1 = indices(list1)
 stop = time.time_ns()
 runtimeList1 = stop - start
 print(ind_list1)
 
-print("Indices without numpy list2")
+print("Indices without numpy, list2")
 start = time.time_ns()
 ind_list2 = indices(list2)
 stop = time.time_ns()
 runtimeList2 = stop - start
 print(ind_list2)
 
-print("Indices without numpy list2a")
+print("Indices without numpy, list2a")
 start = time.time_ns()
 ind_list2a = indices(list2a)
 stop = time.time_ns()
 runtimeList2a = stop - start
 print(ind_list2a)
 
-print("Indices without numpy list3")
+print("Indices without numpy, list3")
 start = time.time_ns()
 ind_list3 = indices(list3)
 stop = time.time_ns()
 runtimeList3 = stop - start
 print(ind_list3)
 
-print("Indices WITH numpy list1")
+print("Indices WITH numpy, list1")
 start = time.time_ns()
 ind_listnp1 = indicesnp(list1)
 stop = time.time_ns()
 runtimeListnp1 = stop - start
 print(ind_listnp1)
 
-print("Indices WITH numpy list2")
+print("Indices WITH numpy, list2")
 start = time.time_ns()
 ind_listnp2 = indicesnp(list2)
 stop = time.time_ns()
 runtimeListnp2 = stop - start
 print(ind_listnp2)
 
-print("Indices WITH numpy list2a")
+print("Indices WITH numpy, list2a")
 start = time.time_ns()
 ind_listnp2a = indicesnp(list2a)
 stop = time.time_ns()
 runtimeListnp2a = stop - start
 print(ind_listnp2a)
 
-print("Indices WITH numpy list3")
+print("Indices WITH numpy, list3")
 start = time.time_ns()
 ind_listnp3 = indicesnp(list3)
 stop = time.time_ns()
