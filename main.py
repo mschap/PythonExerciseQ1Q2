@@ -114,4 +114,4 @@ print("1: " + str(runtimeList3) + " ns or " + str(runtimeList3 / 1000000000) + "
 print("2: " + str(runtimeListnp3) + " ns or " + str(runtimeListnp3 / 1000000000) + " sec\n")
 
 
-input("Press any key to continue")
+%input("Press any key to continue")
