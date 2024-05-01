@@ -7,32 +7,44 @@ class myErrorMsg(Exception):
     pass
 
 # Get indices without numpy, including check for empty list or non-numerical values
-def indices(data):
+def indices_new(values):
     # check if list is empty
-    if not data:
+    if not values:
         raise myErrorMsg("list is empty")
     # check if list contains non numerical values (not int or float)
-    if not all(isinstance(x, (int, float)) for x in data):
+    if not all(isinstance(x, (int, float)) for x in values):
         raise myErrorMsg("not all elements are int or float")
-    # create list of indices
-    indices = list(range(len(data)))
+    # create keys/indices
+    keys = list(range(len(values)))
+    # build a dictionary
+    d = {}
+    for i in range(len(keys)):
+        d.update({keys[i]: values[i]})
+    # sort dictionary by value
+    sorted_by_val = dict(sorted(d.items(), key=lambda x: x[1]))
+    # extract indices (dict keys) as list
+    indices = list(sorted_by_val.keys())
     return indices
 
-
 # Get indices with numpy, including check for empty list or non-numerical values
-def indicesnp(data):
+def indicesnp_new(data):
     #check if list is empty
     if not data:
         raise myErrorMsg("list is empty")
     # convert list to numpy array
-    nparr = np.array(data)
+    values = np.array(data)
     # check if numpy array contains non numerical values (not int or float)
-    if not np.isreal(nparr).all():
+    if not np.isreal(values).all():
         raise myErrorMsg("not all elements are int or float (real)")
-    # create list of indices with numpy
-    indices = np.arange(len(data))
+    # get keys
+    keys = np.arange(len(values))
+    key_value_pairs = np.array([(key, value) for key, value in zip(keys, values)],
+                               dtype=[('key', 'U1'), ('value', float)])
+    sorted_array = np.sort(key_value_pairs, order='value')
+    indices = []
+    for i in sorted_array:
+        indices.append(i[0])
     return indices
-
 
 list1 = [23, 104, 5, 190, 8, 7, -3]
 list2 = []
@@ -46,7 +58,7 @@ for i in range(0, 1000000):
 print("\nIndices without numpy, list1")
 try:
     start = time.time_ns()
-    ind_list1 = indices(list1)
+    ind_list1 = indices_new(list1)
     stop = time.time_ns()
     runtimeList1 = stop - start
     print(ind_list1)
@@ -56,7 +68,7 @@ except myErrorMsg as e:
 print("\nIndices without numpy, list2")
 try:
     start = time.time_ns()
-    ind_list2 = indices(list2)
+    ind_list2 = indices_new(list2)
     stop = time.time_ns()
     runtimeList2 = stop - start
     print(ind_list2)
@@ -67,7 +79,7 @@ except myErrorMsg as e:
 print("\nIndices without numpy, list2a")
 try:
     start = time.time_ns()
-    ind_list2a = indices(list2a)
+    ind_list2a = indices_new(list2a)
     stop = time.time_ns()
     runtimeList2a = stop - start
     print(ind_list2a)
@@ -79,7 +91,7 @@ input("\nPress any button to continue...")
 print("\nIndices without numpy, list3")
 try:
     start = time.time_ns()
-    ind_list3 = indices(list3)
+    ind_list3 = indices_new(list3)
     stop = time.time_ns()
     runtimeList3 = stop - start
     print(ind_list3)
@@ -89,7 +101,7 @@ except myErrorMsg as e:
 print("\nIndices WITH numpy, list1")
 try:
     start = time.time_ns()
-    ind_listnp1 = indicesnp(list1)
+    ind_listnp1 = indicesnp_new(list1)
     stop = time.time_ns()
     runtimeListnp1 = stop - start
     print(ind_listnp1)
@@ -99,7 +111,7 @@ except myErrorMsg as e:
 print("\nIndices WITH numpy, list2")
 try:
     start = time.time_ns()
-    ind_listnp2 = indicesnp(list2)
+    ind_listnp2 = indicesnp_new(list2)
     stop = time.time_ns()
     runtimeListnp2 = stop - start
     print(ind_listnp2)
@@ -109,7 +121,7 @@ except myErrorMsg as e:
 print("\nIndices WITH numpy, list2a")
 try:
     start = time.time_ns()
-    ind_listnp2a = indicesnp(list2a)
+    ind_listnp2a = indicesnp_new(list2a)
     stop = time.time_ns()
     runtimeListnp2a = stop - start
     print(ind_listnp2a)
@@ -119,7 +131,7 @@ except myErrorMsg as e:
 print("\nIndices WITH numpy, list3")
 try:
     start = time.time_ns()
-    ind_listnp3 = indicesnp(list3)
+    ind_listnp3 = indicesnp_new(list3)
     stop = time.time_ns()
     runtimeListnp3 = stop - start
     print(ind_listnp3)
